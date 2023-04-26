@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # リポジトリが存在するかどうかを確認する
 if ! git rev-parse --git-dir > /dev/null 2>&1; then
   echo "エラー：Git リポジトリが見つかりませんでした。スクリプトを中断します。"
@@ -30,3 +29,4 @@ read -p "ブランチ名を入力してください: " remote_branch_name
 
 # push --set-upstream xxx を実行する
 git push --set-upstream "$remote_name" "$remote_branch_name"
+
