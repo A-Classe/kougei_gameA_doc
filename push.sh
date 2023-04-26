@@ -8,11 +8,34 @@ fi
 # 変更があるファイルを表示する
 git status --short
 
-# ブランチ名をユーザーに入力してもらう
-read -p "ブランチ名を入力してください: " branch_name
+# 現在のブランチを取得する
+current_branch=$(git symbolic-ref --short HEAD)
 
-# checkout -b xxxx を実行する
-git checkout -b "$branch_name"
+# ブランチを切り替えるか、新しいブランチを作成するかをユーザーに尋ねる
+read -p "now branch is [${current_branch}]  create new work branch？ (y/n): " is_create_branch
+if [ "$is_create_branch" = "y" ] || [ "$is_create_branch" = "Y" ]; then
+  # ブランチの一覧を表示する
+  branches=$(git branch --list)
+  read -p "changed found branch? (y/n)" switch_branch 
+ 
+  git stash
+  if [ "$switch_branch" = "y" ] || [ "$switch_branch" = "Y" ]; then
+
+    # ブランチ名をユーザーに入力してもらう
+    echo "${branches}"
+    read -p "切り替えるブランチ名を入力してください:" branch_name
+
+    # 既存のブランチに切り替える
+    git checkout "$branch_name"
+  else
+    # checkout -b xxxx を実行する前に、ブランチ名をユーザーに入力してもらう
+    read -p "新しいブランチ名を入力してください: " new_branch_name
+
+    # checkout -b xxxx を実行する
+    git checkout -b "$new_branch_name"
+  fi
+  git stash pop
+fi
 
 # add --all を実行する
 git add --all
