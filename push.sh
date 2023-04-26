@@ -52,5 +52,8 @@ git commit -m "$commit_message"
 #read -p "ブランチ名を入力してください: " remote_branch_name
 
 # push --set-upstream xxx を実行する
-#git push --set-upstream "$remote_name" "$remote_branch_name"
-git push --set-upstream origin "$branch_name"
+if [ "$is_create_branch" = "y" ] || [ "$is_create_branch" = "Y" ]; then
+  git push --set-upstream origin "$branch_name"
+else
+  git push
+fi
