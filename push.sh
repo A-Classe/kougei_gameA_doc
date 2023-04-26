@@ -24,9 +24,9 @@ read -p "コミットメッセージを入力してください: " commit_messag
 git commit -m "$commit_message"
 
 # push --set-upstream xxx を実行する前に、リモート名とブランチ名をユーザーに入力してもらう
-read -p "リモート名を入力してください: " remote_name
-read -p "ブランチ名を入力してください: " remote_branch_name
+#read -p "リモート名を入力してください: " remote_name
+#read -p "ブランチ名を入力してください: " remote_branch_name
 
 # push --set-upstream xxx を実行する
-git push --set-upstream "$remote_name" "$remote_branch_name"
-
+#git push --set-upstream "$remote_name" "$remote_branch_name"
+git push --set-upstream origin "$branch_name"
